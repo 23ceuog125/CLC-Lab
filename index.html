@@ -1,4 +1,3 @@
-Create index.html in a project folder:
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,8 +23,7 @@ e.preventDefault();
 const a = document.getElementById('num1').value;
 const b = document.getElementById('num2').value; 
 const data = a + b;
-result.textContent = data !== undefined ? 'Sum: ' + data : 'Error: ' +
-data;
+result.textContent = data !== undefined ? 'Sum: ' + data : "error occurred..!";
 } catch (err) {
 result.textContent = 'Error: ' + err.message;
 }
