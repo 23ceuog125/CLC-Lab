@@ -22,19 +22,10 @@ const result = document.getElementById('result');
 form.addEventListener('submit', async (e) => {
 e.preventDefault();
 const a = document.getElementById('num1').value;
-const b = document.getElementById('num2').value;
-const apiUrl = 'https://<api-id>.execute-api.<region>.amazonaws.com/prod/add'; //
-replace with your API URL
-try {
-const response = await fetch(apiUrl, {
-method: 'POST',
-headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({ a: parseInt(a), b: parseInt(b) })
-});
-
-const data = await response.json();
-result.textContent = data.sum !== undefined ? 'Sum: ' + data.sum : 'Error: ' +
-data.error;
+const b = document.getElementById('num2').value; 
+const data = a + b;
+result.textContent = data !== undefined ? 'Sum: ' + data : 'Error: ' +
+data;
 } catch (err) {
 result.textContent = 'Error: ' + err.message;
 }
