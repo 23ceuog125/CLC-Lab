@@ -1,33 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Add Two Numbers</title>
-<style>
-body { font-family: Arial; padding: 40px; }
-input { margin: 5px; }
-</style>
+    <title>Add Two Numbers</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            padding: 40px;
+        }
+
+        input {
+            margin: 5px;
+        }
+    </style>
 </head>
+
 <body>
-<h1>Add Two Numbers</h1>
-<form id="addForm">
-<input type="number" id="num1" placeholder="Number 1" required>
-<input type="number" id="num2" placeholder="Number 2" required>
-<button type="submit">Add</button>
-</form>
-<p id="result"></p>
-<script>
-const form = document.getElementById('addForm');
-const result = document.getElementById('result');
-form.addEventListener('submit', async (e) => {
-e.preventDefault();
-const a = document.getElementById('num1').value;
-const b = document.getElementById('num2').value; 
-const data = a + b;
-result.textContent = data !== undefined ? 'Sum: ' + data : "error occurred..!";
-} catch (err) {
-result.textContent = 'Error: ' + err.message;
-}
-});
-</script>
+
+    <h1>Add Two Numbers</h1>
+
+    <form id="addForm">
+        <input
+            type="number"
+            id="num1"
+            placeholder="Number 1"
+            required
+        >
+
+        <input
+            type="number"
+            id="num2"
+            placeholder="Number 2"
+            required
+        >
+
+        <button type="submit">Add</button>
+    </form>
+
+    <p id="result"></p>
+
+    <script>
+        const form = document.getElementById("addForm");
+        const result = document.getElementById("result");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            try {
+                const a = Number(document.getElementById("num1").value);
+                const b = Number(document.getElementById("num2").value);
+
+                const response = await fetch(
+                    "YOUR_API_GATEWAY_URL/add",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            a: a,
+                            b: b
+                        })
+                    }
+                );
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    result.textContent = "Sum: " + data.sum;
+                } else {
+                    result.textContent = "Error: " + data.error;
+                }
+
+            } catch (err) {
+                result.textContent = "Error: " + err.message;
+            }
+        });
+    </script>
+
 </body>
 </html>
